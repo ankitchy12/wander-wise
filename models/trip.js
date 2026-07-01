@@ -1,72 +1,81 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const ExpenseSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    amount: {
-        type: Number,
-        required: true,
-    },
-    date: {
-        type: Date,
-        required: true,
-    },
+  name: {
+    type: String,
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+});
+
+const BudgetSchema = new Schema({
+  total: {
+    type: Number,
+    required: true,
+  },
+  spent: {
+    type: Number,
+    default: 0,
+  },
+  expenses: [ExpenseSchema],
 });
 
 const TripSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  endDate: {
+    type: Date,
+    required: true,
+  },
+  destinations: [
+    {
+      type: String,
+      required: true,
+      trim: true,
     },
-    title: {
-        type: String,
-        required: true,
-        trim: true,
+  ],
+  budget: BudgetSchema,
+  collaborators: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    description: {
-        type: String,
-    },
-    startDate: {
-        type: Date,
-        required: true,
-    },
-    endDate: {
-        type: Date,
-        required: true,
-    },
-    destionation: [
-        {
-            type: String,
-            required: true,
-            trip: true,
-        },
-    ],
-    Budget: BudgetSchema,
-    collaborators: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-        },
-    ],
+  ],
 });
 
-TripSchema.pre("findoneandupdate", function () {
-    const expenses = this.getupdate().Budget?.expenses;
-    if (expenses?.length ) {
-        this.getupdate().budget.spend +=
-           expenses.reduce((act, expense) => acc + expense.amount, 0);
-        expenses.map((expense) => {
-            expense.date = new Date();
-        });
-    }
+TripSchema.pre("findOneAndUpdate", function () {
+  const expenses = this.getUpdate().budget?.expenses;
+  if (expenses?.length) {
+    this.getUpdate().budget.spent +=
+      expenses.reduce((acc, expense) => acc + expense.amount, 0) || 0;
+    expenses.map((expense) => {
+      expense.date = new Date();
+    });
+  }
 });
 
 const Trip = model("Trip", TripSchema);
 
 export default Trip;
-const Expense = model("Expense", ExpenseSchema);
-
-export default Expense;
