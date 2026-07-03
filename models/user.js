@@ -35,6 +35,7 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", async function () {
+  console.log("Pre-save hook triggered for user:", this);
   if (this.isModified("password")) {
     this.password = await hash(this.password, 10);
   }

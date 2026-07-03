@@ -8,6 +8,7 @@ import connectDB from './config/database.js'; // import the connectDB function f
 //dotenv.config(); old approach to load .env variables
 
 import HANDLERS from './handlers/index.js'; // import the handlers from index.js
+import errorMiddleware from './middlewares/error.js'; // import the error middleware from error.js
 
 const app = express();
 
@@ -36,6 +37,8 @@ connectDB();
 
 app.use(express.json()); // middleware to parse incoming JSON requests
 app.use('/', HANDLERS); // use the handlers for all routes
+app.use(errorMiddleware); // use the error middleware for all routes
+
 
 app.listen(port, () => {
   console.log(`Example app is listening at http://localhost:${port}`);
