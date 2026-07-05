@@ -1,5 +1,5 @@
 @baseurl = http://localhost:3000
-
+@userID = 6a4a4611145ca82edb629e31
 ### Test API
 GET {{baseurl}}
 
@@ -12,3 +12,20 @@ content-Type: application/json
     "email": "john.doe@example.com",
     "password": "test123"
 }
+
+#### GET ALL USERS
+GET {{baseurl}}/users
+
+#### GET USER BY ID
+GET {{baseurl}}/users/{{userID}}
+
+### UPDATED BY USER ID
+PATCH {{baseurl}}/users/{{userID}}
+Content-Type: application/json
+
+{
+    "name": "John Doe Updated"
+}
+
+#### DELETE USER BY ID
+DELETE {{baseurl}}/users/{{userID}}
