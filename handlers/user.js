@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { create, index, find, update, remove } from '../services/user.js';
+import { createUserValidator } from '../validators/user.js';
 
 const router = Router();
 
