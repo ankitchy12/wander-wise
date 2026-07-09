@@ -1,5 +1,5 @@
 @baseurl = http://localhost:3000
-@userID = 6a4a4611145ca82edb629e31
+@userID = 6a4e9480d2174463fe2909fc
 ### Test API
 GET {{baseurl}}
 
@@ -24,7 +24,8 @@ PATCH {{baseurl}}/users/{{userID}}
 Content-Type: application/json
 
 {
-    "name": "John Doe Updated"
+    "name": "John Doe Updated",
+    "email": "johndoe12@example.com"
 }
 
 #### DELETE USER BY ID
