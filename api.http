@@ -8,10 +8,11 @@ POST {{baseurl}}/users
 content-Type: application/json
 
 {
-    "name": "John Doe",
-    "email": "john.doe@example.com",
+    "name": "Ankit Chaudhary",
+    "email": "ankit.chaudhary@example.com",
     "password": "test123"
 }
+
 
 #### GET ALL USERS
 GET {{baseurl}}/users

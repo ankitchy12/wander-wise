@@ -1,7 +1,7 @@
 import { body } from "express-validator";
-import User from "../models/user.js";
 import { ValidationError } from "../errors/validation.js";
 import { validate } from "./validate.js";
+import { find } from "../services/user.js";
 
 export const createUserValidator = [
     body("name")
@@ -21,7 +21,7 @@ export const createUserValidator = [
         .trim()
         .escape()
         .custom(async (value) => {
-            const user = await User.findOne({ email: value });
+            const user = await find({ email: value }, { password: 0 });
             if (user) {
                 throw new ValidationError("This email has already been taken.");
             }
