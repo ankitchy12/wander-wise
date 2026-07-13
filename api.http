@@ -31,3 +31,13 @@ Content-Type: application/json
 
 #### DELETE USER BY ID
 DELETE {{baseurl}}/users/{{userID}}
+
+#### REGISTER USER BY ID
+POST {{baseurl}}/auth/register
+content-type: application/json
+
+{
+    "name": "Ankit Chaudhary",
+    "email": "ankit.ch6@example.com",
+    "password": "test123"
+}
