@@ -41,3 +41,12 @@ content-type: application/json
     "email": "ankit.ch6@example.com",
     "password": "test123"
 }
+
+### LOGIN USER
+POST {{baseurl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "ankit.ch6@example.com",
+    "password": "test123"
+}
