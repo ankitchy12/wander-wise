@@ -50,3 +50,18 @@ Content-Type: application/json
   "email": "ankit.ch6@example.com",
     "password": "test123"
 }
+
+### CREATE TRIP
+POST {{baseurl}}/trips
+Content-Type: application/json
+
+{
+  "user": "{{userID}}",
+  "title": "Trip to the moon",
+  "startDate": "2025-12-15",
+  "endDate": "2025-12-16",
+  "budget": {
+    "total": 1000
+  },
+  "destinations": ["Moon", "Mars", "Jupiter"]
+}
