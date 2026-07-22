@@ -1,45 +1,42 @@
-// cons express = require('express'); -> commonjs module -> outdated
+// const express = require('express'); -> commonjs module -> outdated
+import express from 'express'; // -> es module -> modern
+import connectDB from './config/database.js';
+// require('dotenv').config(); -> older approach to load .env variables
 
-import express from  'express'; // -> es module -> latest 
-import connectDB from './config/database.js'; // import the connectDB function from database.js 
+// import dotenv from 'dotenv';
+// dotenv.config(); -> old approach to load .env variables
 
-//import dotenv from 'dotenv';
-
-//dotenv.config(); old approach to load .env variables
-
-import HANDLERS from './handlers/index.js'; // import the handlers from index.js
-import errorMiddleware from './middlewares/error.js'; // import the error middleware from error.js
+import HANDLERS from './handlers/index.js';
+import errorMiddleware from './middlewares/error.js';
+import { authMiddleware } from './middlewares/auth.js';
 
 const app = express();
-
-const port = process.env.PORT ;
+const port = process.env.PORT;
 
 // old approach
-function helloworldold(req,res) {
+function helloWorldOld(req, res) {
   res.send('Hello World!');
 }
 
 // new approach
 // named function
-const helloworldnew = (req,res) => {
-  res.send('Hello Ankit coding World!');
+const helloWorldNew = (req, res) => {
+  res.send('Hello Again, World!');
 };
 
-//app.get('/', (req, res) => {
-  //res.send('Hello, World!');
-//});
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });
 
-//helloworldold();
-
-// app.get('/', helloworldnew);
+// app.get('/', helloWorldNew);
 
 connectDB();
 
-app.use(express.json()); // middleware to parse incoming JSON requests
-app.use('/', HANDLERS); // use the handlers for all routes
-app.use(errorMiddleware); // use the error middleware for all routes
-
+app.use(express.json());
+app.use(authMiddleware);
+app.use("/", HANDLERS);
+app.use(errorMiddleware);
 
 app.listen(port, () => {
-  console.log(`Example app is listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });

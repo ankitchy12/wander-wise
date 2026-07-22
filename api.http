@@ -1,5 +1,7 @@
 @baseurl = http://localhost:3000
 @userID = 6a4e9480d2174463fe2909fc
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTU0ZDM2Y2M4ZDRkZDYzNDJmMzNlZTAiLCJpYXQiOjE3ODQ3MTk5OTAsImV4cCI6MTc4NDgwNjM5MH0.PDFcBM-wlZU9ozM0lWGs6voBNloYEFUee1OHW2EFJH4
+
 ### Test API
 GET {{baseurl}}
 
@@ -54,6 +56,7 @@ Content-Type: application/json
 ### CREATE TRIP
 POST {{baseurl}}/trips
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "user": "{{userID}}",
