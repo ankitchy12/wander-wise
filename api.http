@@ -1,13 +1,14 @@
-@baseurl = http://localhost:3000
-@userID = 6a4e9480d2174463fe2909fc
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTU0ZDM2Y2M4ZDRkZDYzNDJmMzNlZTAiLCJpYXQiOjE3ODQ3MTk5OTAsImV4cCI6MTc4NDgwNjM5MH0.PDFcBM-wlZU9ozM0lWGs6voBNloYEFUee1OHW2EFJH4
+@baseUrl = http://localhost:3000
+@userId = 6a54d36cc8d4dd6342f33ee0
+@tripId = 6a624806fba8573ba007b4ee
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTU0ZDM2Y2M4ZDRkZDYzNDJmMzNlZTAiLCJpYXQiOjE3ODQ4MjU4NDcsImV4cCI6MTc4NDkxMjI0N30.zQ888ZQPMjXConibbK0vrMqGV7Rvqx6TpJn9LzWyf-I
 
-### Test API
-GET {{baseurl}}
+### TEST API
+GET {{baseUrl}}
 
 ### CREATE USER
-POST {{baseurl}}/users
-content-Type: application/json
+POST {{baseUrl}}/users
+Content-Type: application/json
 
 {
     "name": "Ankit Chaudhary",
@@ -15,28 +16,26 @@ content-Type: application/json
     "password": "test123"
 }
 
+### GET ALL USERS
+GET {{baseUrl}}/users
 
-#### GET ALL USERS
-GET {{baseurl}}/users
+### GET USER BY ID
+GET {{baseUrl}}/users/{{userId}}
 
-#### GET USER BY ID
-GET {{baseurl}}/users/{{userID}}
-
-### UPDATED BY USER ID
-PATCH {{baseurl}}/users/{{userID}}
+### UPDATE USER BY ID
+PATCH {{baseUrl}}/users/{{userId}}
 Content-Type: application/json
 
 {
-    "name": "John Doe Updated",
-    "email": "johndoe12@example.com"
+  "name": "John Doe Updated"
 }
 
-#### DELETE USER BY ID
-DELETE {{baseurl}}/users/{{userID}}
+### DELETE USER BY ID
+DELETE {{baseUrl}}/users/{{userId}}
 
-#### REGISTER USER BY ID
-POST {{baseurl}}/auth/register
-content-type: application/json
+### REGISTER USER
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
 
 {
     "name": "Ankit Chaudhary",
@@ -45,7 +44,7 @@ content-type: application/json
 }
 
 ### LOGIN USER
-POST {{baseurl}}/auth/login
+POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
@@ -53,13 +52,13 @@ Content-Type: application/json
     "password": "test123"
 }
 
+
 ### CREATE TRIP
-POST {{baseurl}}/trips
+POST {{baseUrl}}/trips
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "user": "{{userID}}",
   "title": "Trip to the moon",
   "startDate": "2025-12-15",
   "endDate": "2025-12-16",
@@ -68,3 +67,27 @@ Authorization: Bearer {{token}}
   },
   "destinations": ["Moon", "Mars", "Jupiter"]
 }
+
+### GET ALL TRIPS
+GET {{baseUrl}}/trips
+Authorization: Bearer {{token}}
+
+### GET TRIP BY ID
+GET {{baseUrl}}/trips/{{tripId}}
+Authorization: Bearer {{token}}
+
+### UPDATE TRIP BY ID
+PATCH {{baseUrl}}/trips/{{tripId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Trip to the moon and back",
+  "budget": {
+    "total": 1500
+  }
+}
+
+### DELETE TRIP BY ID
+DELETE {{baseUrl}}/trips/{{tripId}}
+Authorization: Bearer {{token}}
